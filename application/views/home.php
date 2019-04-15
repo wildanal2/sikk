@@ -21,11 +21,11 @@
       <section class="top-bar-section">
       <!-- Right Nav Section -->
         <ul class="right">
-          <li class='active'><a href="products.php">Home</a></li>
+          <li class='active'><a href="<?php echo site_url('Home')?>">Home</a></li>
           <li><a href="<?php echo site_url('Home/cart')?>">View Cart</a></li>
           <li><a href="<?php echo site_url('Home/transaksi')?>">Transaksi</a></li>
-          <li><a href="account.php">My Account</a></li>
-          <li><a href="'.site_url('Account/logout').'">Log Out</a></li>
+          <li><a href="<?php echo site_url('Home/account')?>">My Account</a></li>
+          <li><a href="<?php echo site_url('Account/logout')?>">Log Out</a></li>
         </ul>
       </section>
     </nav>
@@ -38,7 +38,7 @@
         <?php 
           foreach ($barang as $key ) {
               echo '<div class="large-3 columns">'; 
-              echo '<img class="img-fluid" src="'.base_url().'assets/images/products/sports_shoes.jpg"/>';
+              echo '<img class="img-fluid" src="'.base_url().'assets/images/products/'.$key->foto.'"/>';
               echo '<p><h4>'.$key->nama_barang.'</h4></p>';
               echo '<p>Product Code : '.$key->kd_barang.'</p>';
               echo '<p>Description : '.$key->deskripsi.'</p>';
@@ -64,11 +64,13 @@
     <script src="<?php echo base_url() ?>assets/js/foundation.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+
             $('.add_cart').click(function(){
                 var produk_id    = $(this).data("produkid");
                 var produk_nama  = $(this).data("produknama");
                 var produk_harga = $(this).data("produkharga");
                 var quantity     = 1;
+                
                 $.ajax({
                     url : "<?php echo base_url();?>index.php/Home/add_to_cart",
                     method : "POST",
