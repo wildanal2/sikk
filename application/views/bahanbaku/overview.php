@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php $this->load->view("admin/_partials/head.php") ?>
+	<?php $this->load->view("bahanbaku/_partials/head.php") ?>
 </head>
 <body id="page-top">
 
-<?php $this->load->view("admin/_partials/navbar.php") ?>
+<?php $this->load->view("bahanbaku/_partials/navbar.php") ?>
 
 <div id="wrapper">
 
-	<?php $this->load->view("admin/_partials/sidebar.php") ?>
+	<?php $this->load->view("bahanbaku/_partials/sidebar.php") ?>
 
 	<div id="content-wrapper">
 
@@ -20,7 +20,7 @@
         Jika anda ingin mengampilkan breadcrumb di halaman overview,
         silahkan hilangkan komentar (//) di tag PHP di bawah.
         -->
-		<?php //$this->load->view("admin/_partials/breadcrumb.php") ?>
+		<?php //$this->load->view("bahanbaku/_partials/breadcrumb.php") ?>
 
 		<!-- Icon Cards-->
 		<div class="row">
@@ -105,7 +105,7 @@
 		<!-- /.container-fluid -->
 
 		<!-- Sticky Footer -->
-		<?php $this->load->view("admin/_partials/footer.php") ?>
+		<?php $this->load->view("bahanbaku/_partials/footer.php") ?>
 
 	</div>
 	<!-- /.content-wrapper -->
@@ -114,9 +114,9 @@
 <!-- /#wrapper -->
 
 
-<?php $this->load->view("admin/_partials/scrolltop.php") ?>
-<?php $this->load->view("admin/_partials/modal.php") ?>
-<?php $this->load->view("admin/_partials/js.php") ?>
+<?php $this->load->view("bahanbaku/_partials/scrolltop.php") ?>
+<?php $this->load->view("bahanbaku/_partials/modal.php") ?>
+<?php $this->load->view("bahanbaku/_partials/js.php") ?>
     
 </body>
 </html>

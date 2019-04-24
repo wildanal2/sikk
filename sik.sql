@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2019 at 06:03 AM
+-- Generation Time: Apr 24, 2019 at 09:41 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 5.6.40
 
@@ -39,12 +39,12 @@ CREATE TABLE `bahan_baku` (
 --
 
 INSERT INTO `bahan_baku` (`id_bahan`, `nama`, `stok`) VALUES
-(1, 'kayu', 110),
-(2, 'lem', 70),
+(1, 'kayu', 0),
+(2, 'lem', 0),
 (3, 'skrup', 26),
-(4, 'engsel', 47),
-(5, 'cat', 15),
-(6, 'kaca', 56);
+(4, 'engsel', 50),
+(5, 'cat', 16),
+(6, 'kaca', 16);
 
 -- --------------------------------------------------------
 
@@ -66,15 +66,16 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id`, `kd_trans`, `kd_barang`, `jumlah`, `harga`, `status`) VALUES
-(1, 'INV1904130082149', 2, 2, 3000, 1),
-(2, 'INV1904130082149', 4, 1, 4500, 1),
-(3, 'INV1904130112505', 1, 1, 11000, 1),
-(4, 'INV1904130152209', 5, 1, 5700, 0),
-(5, 'INV1904130161934', 2, 1, 3000, 1),
-(6, 'INV1904140180007', 5, 2, 5700000, 0),
-(7, 'INV1904150053314', 1, 1, 2800000, 1),
-(8, 'INV1904150054523', 5, 2, 5700000, 0),
-(9, 'INV1904150054523', 4, 1, 4500000, 1);
+(16, 'INV1904150084203', 4, 1, 4500000, 1),
+(17, 'INV1904150084203', 1, 1, 2800000, 1),
+(18, 'INV1904150084203', 5, 1, 5700000, 1),
+(19, 'INV1904180033147', 4, 1, 4500000, 0),
+(20, 'INV1904180033147', 5, 1, 5700000, 0),
+(21, 'INV1904240085844', 1, 1, 2800000, 1),
+(22, 'INV1904240085844', 4, 1, 4500000, 1),
+(23, 'INV1904240085844', 5, 1, 5700000, 1),
+(24, 'INV1904240093432', 4, 1, 4500000, 0),
+(25, 'INV1904240093432', 5, 1, 5700000, 0);
 
 -- --------------------------------------------------------
 
@@ -96,8 +97,12 @@ CREATE TABLE `pembelian_bahanbaku` (
 --
 
 INSERT INTO `pembelian_bahanbaku` (`id`, `tanggal_req`, `kd_produksi`, `kd_bahan`, `request`, `status`) VALUES
-(2, '2019-04-15 06:43:54', 33305, 1, 30, 1),
-(3, '2019-04-15 10:37:18', 33306, 2, 5, 1);
+(4, '2019-04-15 13:53:30', 33317, 1, 3, 2),
+(5, '2019-04-18 08:45:44', 33317, 5, 3, 2),
+(6, '2019-04-24 14:03:21', 33320, 5, 3, 2),
+(7, '2019-04-24 14:05:51', 33321, 1, 1, 2),
+(8, '2019-04-24 14:06:37', 33321, 1, 1, 2),
+(9, '2019-04-24 14:08:27', 33322, 1, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -150,7 +155,10 @@ INSERT INTO `product_formula` (`id_for`, `kd_produk`, `kd_bahan`, `jumlah_bahan`
 (10, 2, 3, 32),
 (11, 2, 6, 6),
 (12, 4, 1, 7),
-(13, 4, 2, 5);
+(13, 4, 2, 5),
+(14, 5, 1, 10),
+(15, 5, 2, 5),
+(16, 5, 5, 8);
 
 -- --------------------------------------------------------
 
@@ -172,12 +180,12 @@ CREATE TABLE `produksi` (
 --
 
 INSERT INTO `produksi` (`id_produk`, `tgl_produksi`, `kd_pembelian`, `kd_produk`, `jumlah`, `status`) VALUES
-(4, '2019-04-14 12:12:34', 5, 2, 1, 2),
-(5, '2019-04-14 12:43:14', 2, 4, 1, 2),
-(29866, '2019-04-13 22:46:28', 3, 1, 1, 2),
-(33305, '2019-04-14 00:33:49', 1, 2, 2, 2),
-(33306, '2019-04-15 10:36:20', 7, 1, 1, 2),
-(33307, '2019-04-15 10:49:47', 9, 4, 1, 2);
+(33317, '2019-04-15 13:44:51', 17, 1, 1, 1),
+(33318, '2019-04-15 13:45:05', 16, 4, 1, 2),
+(33319, '2019-04-15 13:45:08', 18, 5, 1, 2),
+(33320, '2019-04-24 14:01:40', 21, 1, 1, 2),
+(33321, '2019-04-24 14:01:55', 22, 4, 1, 2),
+(33322, '2019-04-24 14:01:58', 23, 5, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -221,7 +229,7 @@ CREATE TABLE `status_produksi` (
 
 INSERT INTO `status_produksi` (`id`, `keterangan`) VALUES
 (1, 'sedang di produksi'),
-(2, 'Produksi Selesai');
+(2, 'Produksi Selesai ');
 
 -- --------------------------------------------------------
 
@@ -247,13 +255,10 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`kd_trans`, `tgl_trans`, `tgl_pembayaran`, `tgl_pengiriman`, `kd_cust`, `nama`, `alamat`, `total`, `bukti`, `status`) VALUES
-('INV1904130082149', '2019-04-13', '2019-04-13 13:18:00', '0000-00-00', 1, 'awaw', 'opopo', 10500, 'pembayarancustomer/120190413132210.png', 4),
-('INV1904130112505', '2019-04-13', '2019-04-13 03:00:00', '0000-00-00', 1, 'Andi', 'lololo', 11000, 'pembayarancustomer/120190413162522.png', 7),
-('INV1904130152209', '2019-04-13', '2019-04-13 20:22:25', '0000-00-00', 1, 'awaw a', 'lololo', 5700, 'pembayarancustomer/120190413202225.png', 2),
-('INV1904130161934', '2019-04-13', '2019-04-13 21:19:48', '0000-00-00', 1, 'Andi ww', 'lololo', 3000, 'pembayarancustomer/120190413211948.jpg', 7),
-('INV1904140180007', '2019-04-14', '2019-04-14 23:00:27', '0000-00-00', 1, 'faisal', 'mlg', 11400000, 'pembayarancustomer/120190414230027.jpg', 1),
-('INV1904150053314', '2019-04-15', '2019-04-15 10:34:30', '0000-00-00', 1, 'faisal', 'mlgg', 2800000, 'pembayarancustomer/120190415103430.jpg', 7),
-('INV1904150054523', '2019-04-15', '2019-04-15 10:47:37', '0000-00-00', 1, 'Andi', 'mlg a', 15900000, 'pembayarancustomer/120190415104737.jpg', 4);
+('INV1904150084203', '2019-04-15', '2019-04-15 13:42:18', '0000-00-00', 6, 'okky', 'malang', 13000000, 'pembayarancustomer/620190415134218.jpg', 7),
+('INV1904180033147', '2019-04-18', '2019-04-18 08:33:00', '0000-00-00', 6, 'awaw', 'aaafff', 10200000, 'pembayarancustomer/620190418083300.JPG', 1),
+('INV1904240085844', '2019-04-24', '2019-04-24 13:59:09', '0000-00-00', 6, 'okky', 'malang', 13000000, 'pembayarancustomer/620190424135909.png', 7),
+('INV1904240093432', '2019-04-24', '2019-04-24 14:34:56', '0000-00-00', 6, 'okky', 'kembang turi', 10200000, 'pembayarancustomer/620190424143456.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -279,7 +284,9 @@ INSERT INTO `user` (`kd_cust`, `nama_cust`, `alamat`, `email`, `password`, `leve
 (2, 'wildan', 'jl', 'w@gmail.com', 'a', 4),
 (3, 'anji', 'ass', 'a@gmail.com', 'a', 5),
 (4, 'momo', 'm', 'm@gmail.com', 'a', 2),
-(5, 'panji', 'as', 'p@gmail.com', 'a', 3);
+(5, 'panji', 'as', 'p@gmail.com', 'a', 3),
+(6, 'okky', 'blitar', 'ok@gmail.com', 'a', 6),
+(7, 'nyakk', 'mlggg', 'nyak@gmail.com', 'a', 6);
 
 --
 -- Indexes for dumped tables
@@ -374,13 +381,13 @@ ALTER TABLE `bahan_baku`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pembelian_bahanbaku`
 --
 ALTER TABLE `pembelian_bahanbaku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -392,13 +399,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_formula`
 --
 ALTER TABLE `product_formula`
-  MODIFY `id_for` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_for` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33308;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33323;
 
 --
 -- AUTO_INCREMENT for table `status_produksi`
@@ -410,7 +417,7 @@ ALTER TABLE `status_produksi`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `kd_cust` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `kd_cust` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -420,7 +427,8 @@ ALTER TABLE `user`
 -- Constraints for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  ADD CONSTRAINT `fk_pembelian_produk` FOREIGN KEY (`kd_barang`) REFERENCES `product` (`kd_barang`);
+  ADD CONSTRAINT `fk_pembelian_produk` FOREIGN KEY (`kd_barang`) REFERENCES `product` (`kd_barang`),
+  ADD CONSTRAINT `sdasdasd` FOREIGN KEY (`kd_trans`) REFERENCES `transaksi` (`kd_trans`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pembelian_bahanbaku`

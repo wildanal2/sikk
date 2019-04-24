@@ -8,9 +8,21 @@ class AdmProduksi_model extends CI_Model {
     	parent::__construct();
     }
 
+    public function produk_all()
+    { 
+        $query = $this->db->get('product');
+        return $query->result();
+    }
+
+    public function produk_formula($id)
+    { 
+        $query= $this->db->query("SELECT * FROM `product_formula` JOIN bahan_baku on product_formula.kd_bahan=bahan_baku.id_bahan WHERE kd_produk=$id");
+        return $query->result();
+    }
+
     public function get_readynow()
     { 
-        $query= $this->db->query("SELECT * FROM `transaksi` JOIN pembelian ON transaksi.kd_trans=pembelian.kd_trans JOIN product ON pembelian.kd_barang=product.kd_barang WHERE transaksi.status=3 and pembelian.status=0 ORDER BY transaksi.tgl_pembayaran ASC");
+        $query= $this->db->query("SELECT * FROM `transaksi` JOIN pembelian ON transaksi.kd_trans=pembelian.kd_trans JOIN product ON pembelian.kd_barang=product.kd_barang WHERE pembelian.status=0 and transaksi.status!=0 and transaksi.status!=1   ORDER BY transaksi.tgl_pembayaran ASC");
         return $query->result();
     }
 
@@ -82,6 +94,34 @@ class AdmProduksi_model extends CI_Model {
  		
  		return $result;
     }
+
+    public function tambah_bahanbaku()
+    {
+        $a =$this->input->post('id_bahan');
+
+        $query= $this->db->query("SELECT * FROM `bahan_baku` WHERE id_bahan=$a");
+        // $query = $this->db->get();
+        $hasil = $query->result();
+        $jml = $hasil[0]->stok;
+
+        $jml = $jml+$this->input->post('sisa');
+        $data = array( 
+            'stok'  => $jml
+        );
+        $this->db->where('id_bahan', $this->input->post('id_bahan'));
+        $result=$this->db->update('bahan_baku',$data);
+        
+        // db 
+        $data = array( 
+            'status'  => 2
+        );
+        $this->db->where('id', $this->input->post('id_req'));
+        $result=$this->db->update('pembelian_bahanbaku',$data);
+
+
+        return $result;
+    }
+
 
     public function new_reqbahan()
     {

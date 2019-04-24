@@ -184,6 +184,17 @@
                                       jml=data[0].jml;
                                   } 
                             });
+                        // bag warna status
+                        var wrnastatus = null;
+                        if (data[i].status==7) {
+                          wrnastatus = "#4CAF5050";
+                        }else if(data[i].status==0){
+                          wrnastatus = "#EF143E50";
+                        }else if(data[i].status==2){
+                          wrnastatus = "#EF143E50";
+                        }else{
+                          wrnastatus = "#FFFF4950";
+                        }
 
                         html +=    
                             '<div class="card" style="margin-top: 5px;">'+
@@ -194,11 +205,11 @@
                                 '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">'+
                                   '<h5 class="card-title"><a href="javascript:void(0);" class="item_view" data-id_k="'+data[i].kd_trans+'">'+data[i].kd_trans+'</a></h5>'+
                                   '<p class="card-text">Tanggal '+data[i].tgl_trans+'</p>'+
-                                  '<p class="card-text">'+jml+' Produk  | total : Rp. '+data[i].total+'</p>'+
+                                  '<p class="card-text">'+jml+' Produk  | total : '+formatRupiah(data[i].total)+'</p>'+
                                 '</div>'+
                                 '<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">'+
                                   '<h5 class="card-title">Status</h5>'+
-                                  '<p class="card-text row">'+data[i].keterangan+'</p>';
+                                  '<p class="card-text" style="background-color: '+wrnastatus+';">'+data[i].keterangan+'</p>';
                           if (data[i].status==6) {
                               html+='<button type="button" class="btn btn-info btn_sure" data-idinv="'+data[i].kd_trans+'"'+ 
                                     '>Telah Diterima</button>';
@@ -232,13 +243,14 @@
                         var html = '';
                         var i; 
                         for(i=0; i<data.length; i++){    
+                          var to =(data[i].harga*data[i].jumlah);
                         html +=  
                             '<tr>'+
                                 '<td>'+(i+1) +'</td>'+
                                 '<td>'+data[i].nama_barang+'</td>'+
-                                '<td>'+data[i].harga+'</td>'+ 
+                                '<td>'+formatRupiah(data[i].harga)+'</td>'+ 
                                 '<td>'+data[i].jumlah+'</td>'+  
-                                '<td>'+(data[i].harga*data[i].jumlah)+'</td>'+ 
+                                '<td>'+to+'</td>'+ 
                             '</tr>';    
                         }
 
@@ -276,6 +288,23 @@
               });
             });            
 
+
+            function formatRupiah(angka){
+              var number_string = angka.replace(/[^,\d]/g, '').toString(),
+              split       = number_string.split(','),
+              sisa        = split[0].length % 3,
+              rupiah        = split[0].substr(0, sisa),
+              ribuan        = split[0].substr(sisa).match(/\d{3}/gi);
+         
+              // tambahkan titik jika yang di input sudah menjadi angka ribuan
+              if(ribuan){
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+              }
+         
+              rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+              return "" == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
 
         });
     </script>    

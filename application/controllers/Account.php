@@ -22,6 +22,8 @@ class Account extends CI_Controller {
 				redirect('AdminProduksi','refresh');
 			}else if ($session_data['level']==3) {
 				redirect('AdminPengiriman','refresh');
+			}else if ($session_data['level']==2) {
+				redirect('AdminBahanBaku','refresh');
 			}else{
 				redirect('Account/login','refresh');
 			} 

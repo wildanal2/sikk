@@ -48,7 +48,7 @@
               echo '<p><h4>'.$key->nama_barang.'</h4></p>';
               echo '<p>Product Code : '.$key->kd_barang.'</p>';
               echo '<p>Description : '.$key->deskripsi.'</p>';
-              echo '<p>Harga : '.$key->harga.'</p>';
+              echo '<p>Harga : Rp. '.number_format($key->harga,2,',','.').'</p>';
               echo '<button class="add_cart btn btn-success btn-block" data-produkid="'.$key->kd_barang.'" data-produknama="'.$key->nama_barang.'" data-produkharga="'.$key->harga.'">Add To Cart</button>';
               echo '</div>';
 
@@ -86,7 +86,7 @@
                     }
                 });
             });
-     
+            
             
         });
     </script>

@@ -185,8 +185,7 @@
                 var jumlah_prod = document.getElementById("jumlah_p").innerHTML;
                 var id_prod = document.getElementById("iddd").value;
                 var kd_prod = document.getElementById("kd_brg").value;
-                
-                alert(trans);
+                 
                 $.ajax({ 
                     async : false,
                     url : "<?php echo base_url();?>index.php/AdminProduksi/newProduksi",

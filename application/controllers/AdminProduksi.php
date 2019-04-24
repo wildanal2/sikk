@@ -58,6 +58,23 @@ class AdminProduksi extends CI_Controller {
 		}   
 	}
 
+	public function formula()
+	{
+		if ($this->session->userdata('sik_logged')) {
+			$session_data = $this->session->userdata('sik_logged');
+			
+			if ($session_data['level']==4) {
+				$data['username'] = $session_data['username'];
+
+				$this->load->view('produksi/formula',$data);
+			}else{
+				redirect('Account/login','refresh');
+			} 
+		}else {
+			redirect('Account/login','refresh');
+		}   
+	}
+
 
 	// ====== json ======
 
@@ -101,9 +118,24 @@ class AdminProduksi extends CI_Controller {
 		echo json_encode($this->AdmProduksi_model->jalan_bahanbaku());
 	}
 
+	public function tambahbahanbaku()
+	{ 
+		echo json_encode($this->AdmProduksi_model->tambah_bahanbaku());
+	}
+
 	public function produksiSelesai()
 	{
 		echo json_encode($this->AdmProduksi_model->produksi_selesai());
+	}
+
+	public function produklist()
+	{
+		echo json_encode($this->AdmProduksi_model->produk_all());
+	}
+
+	public function formulaProduk()
+	{
+		echo json_encode($this->AdmProduksi_model->produk_formula($this->input->post('id')));
 	}
  
 
